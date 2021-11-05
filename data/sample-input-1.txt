@@ -1,0 +1,16 @@
+# Size of rectangular area, in kms
+0.50 0.50
+# Number of objects in the area (type, size, x and y coords)
+0
+# Side of entry square, in metres
+40
+# Number of sensors
+2
+# Range of each sensor (radius, in metres)
+25
+# Maximum speed of each sensor (in metres/sec)
+10
+# Time limit for each sensor's entry (in number of secs, an integer)
+15
+# Time limit for simulation (number of secs, an integer)
+5000
