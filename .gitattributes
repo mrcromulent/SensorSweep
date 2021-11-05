@@ -27,6 +27,6 @@
 *.png binary
 *.xlsx binary
 
-# Try to show MATLAB as primary language
+## Try to show MATLAB as primary language
 * linguist-vendored
 *.m linguist-vendored=false
