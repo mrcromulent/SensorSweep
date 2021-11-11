@@ -32,7 +32,7 @@ classdef Simulation < handle
             self.showBackground();
             self.showShapes(self.fr.objects, [0,0,1], 0.1);
             
-            while self.currTime < self.fr.simulation_time_limit
+            while self.currTime < self.fr.simulationTimeLimit
                 self.currTime = self.currTime + self.dt;
                 
                 self.hideSensors();
@@ -49,7 +49,7 @@ classdef Simulation < handle
                 end
                 
                 
-                if self.allObjectsFound() && self.fr.num_objects > 0
+                if self.allObjectsFound() && self.fr.numObjects > 0
                     disp("All objects found!");
                     break;
                 end
@@ -90,7 +90,7 @@ classdef Simulation < handle
         function activateSensors(self)           
             for i = 1:length(self.sensors)
                 currSensor = self.sensors(i);
-                if currSensor.state == SensorStates.NotYetSpawned && self.currTime >= currSensor.spawn_time
+                if currSensor.state == SensorStates.NotYetSpawned && self.currTime >= currSensor.spawnTime
                     currSensor.activate();
                 end
            end
@@ -130,7 +130,7 @@ classdef Simulation < handle
         function showSensors(self)
             for i = 1:length(self.sensors)
                 currSensor = self.sensors(i);
-                if self.currTime >= currSensor.spawn_time
+                if self.currTime >= currSensor.spawnTime
                     currSensor.drawSelf(); 
                 end
             end
@@ -147,10 +147,10 @@ classdef Simulation < handle
             sns = [];
             [spawnx, spawny, spawnTimes] = self.getSpawnInfo();
             
-            for i = 1:self.fr.num_sensors
-                sns = [sns, Sensor(i, self.fr.sensor_range, ...
-                    [spawnx(i), spawny(i)], self.fr.sensor_max_speed, ...
-                    spawnTimes(i), self.fr.area_dims)];
+            for i = 1:self.fr.numSensors
+                sns = [sns, Sensor(i, self.fr.sensorRange, ...
+                    [spawnx(i), spawny(i)], self.fr.sensorMaxSpeed, ...
+                    spawnTimes(i), self.fr.areaDims)];
             end
             
             self.sensors = sns;
@@ -158,19 +158,19 @@ classdef Simulation < handle
         
         function [spawnx, spawny, spawnTimes] = getSpawnInfo(self)
             
-            saw = self.fr.area_dims(1);
-            sah = self.fr.area_dims(2);
-            eas = self.fr.entry_sq_side;
+            saw = self.fr.areaDims(1);
+            sah = self.fr.areaDims(2);
+            eas = self.fr.entrySqSide;
             
-            spawnx      = saw / 2 - eas / 2 + (eas) * rand(self.fr.num_sensors, 1);
-            spawny      = sah / 2 - eas / 2 + (eas) * rand(self.fr.num_sensors, 1);
-            spawnTimes  = (self.fr.sensor_time_limit) * rand(self.fr.num_sensors, 1);
+            spawnx      = saw / 2 - eas / 2 + (eas) * rand(self.fr.numSensors, 1);
+            spawny      = sah / 2 - eas / 2 + (eas) * rand(self.fr.numSensors, 1);
+            spawnTimes  = (self.fr.sensorTimeLimit) * rand(self.fr.numSensors, 1);
         end
         
         function showBackground(self)
             
-            ad = self.fr.area_dims;
-            s = self.fr.entry_sq_side;
+            ad = self.fr.areaDims;
+            s = self.fr.entrySqSide;
             w = ad(1);
             l = ad(2);
             
@@ -178,7 +178,7 @@ classdef Simulation < handle
             rectangle("Position", [(w/2 - s/2) (l/2 - s/2) s s], "LineStyle", ":");
             
             axis equal;
-            axis([0 self.fr.area_dims(1) 0 self.fr.area_dims(2)])
+            axis([0 self.fr.areaDims(1) 0 self.fr.areaDims(2)])
             set(gcf, "Units", "Normalized", "OuterPosition", [0 0 0.5 0.5]);
         end
         
